@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Gallery</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Tuba Ulusoy</h1>
+    <nav>
+      <a href="index.html">About</a>
+      <a href="research.html">Research</a>
+      <a href="publications.html">Publications</a>
+      <a href="cv.html">CV</a>
+      <a href="gallery.html">Photo Gallery</a>
+      <a href="teaching.html">Teaching</a>
+      <a href="awards.html">Awards</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Photo Gallery</h2>
+
+    <div class="gallery-group">
+      <h3>Netherlands 2018</h3>
+      <div class="gallery">
+        <img src="photos/netherlands1.jpg" alt="Netherlands 1" onclick="openLightbox(0)">
+        <img src="photos/netherlands2.jpg" alt="Netherlands 2" onclick="openLightbox(1)">
+      </div>
+    </div>
+
+    <div class="gallery-group">
+      <h3>Paris 2019</h3>
+      <div class="gallery">
+        <img src="photos/paris1.jpg" alt="Paris 1" onclick="openLightbox(2)">
+        <img src="photos/paris2.jpg" alt="Paris 2" onclick="openLightbox(3)">
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <span class="nav prev" onclick="event.stopPropagation(); changePhoto(-1)">&#10094;</span>
+    <img id="lightbox-img" src="" alt="Large view">
+    <span class="nav next" onclick="event.stopPropagation(); changePhoto(1)">&#10095;</span>
+  </div>
+
+  <footer>
+    <p>© 2025 Tuba Ulusoy</p>
+  </footer>
+
+  <script>
+    const photos = [
+      "photos/netherlands1.jpg",
+      "photos/netherlands2.jpg",
+      "photos/paris1.jpg",
+      "photos/paris2.jpg"
+    ];
+
+    let currentPhotoIndex = 0;
+
+    function openLightbox(index) {
+      currentPhotoIndex = index;
+      document.getElementById("lightbox-img").src = photos[index];
+      document.getElementById("lightbox").style.display = "flex";
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
+    function changePhoto(direction) {
+      currentPhotoIndex = (currentPhotoIndex + direction + photos.length) % photos.length;
+      document.getElementById("lightbox-img").src = photos[currentPhotoIndex];
+    }
+
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "ArrowRight") changePhoto(1);
+      if (event.key === "ArrowLeft") changePhoto(-1);
+      if (event.key === "Escape") closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
